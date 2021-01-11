@@ -10,8 +10,8 @@ using TournamentPlanner.Data;
 namespace TournamentPlanner.Migrations
 {
     [DbContext(typeof(TournamentPlannerDbContext))]
-    [Migration("20210105095310_Initial")]
-    partial class Initial
+    [Migration("20210109144147_OptionalWinnerId")]
+    partial class OptionalWinnerId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace TournamentPlanner.Migrations
                     b.Property<int>("Round")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WinnerID")
+                    b.Property<int?>("WinnerOfTheMatchID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -46,7 +46,7 @@ namespace TournamentPlanner.Migrations
 
                     b.HasIndex("Player2ID");
 
-                    b.HasIndex("WinnerID");
+                    b.HasIndex("WinnerOfTheMatchID");
 
                     b.ToTable("Matches");
                 });
@@ -63,7 +63,7 @@ namespace TournamentPlanner.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PhoneNumber")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -86,16 +86,16 @@ namespace TournamentPlanner.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TournamentPlanner.Data.Player", "Winner")
+                    b.HasOne("TournamentPlanner.Data.Player", "WinnerOfTheMatch")
                         .WithMany()
-                        .HasForeignKey("WinnerID")
+                        .HasForeignKey("WinnerOfTheMatchID")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Player1");
 
                     b.Navigation("Player2");
 
-                    b.Navigation("Winner");
+                    b.Navigation("WinnerOfTheMatch");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,6 +23,9 @@ namespace TournamentPlanner
             // Note: This method is NOT COMPLETE.
             // Todo: Complete the class according to the requirements
 
+            services.AddDbContext<TournamentPlannerDbContext>(options => options.UseSqlServer(
+           Configuration["ConnectionStrings:DefaultConnection"]));
+
             services.AddControllers();
         }
 
